@@ -81,16 +81,23 @@ const SideBar = () => {
           onClick={() => handleExpandNav()}
           className="lg:px-4 px-2  py-2 mt-28 cursor-pointer hover:rounded-full hover:bg-slate-400 block dark:text-white"
           role="expand"
+          aria-label="expand navigation"
         >
           {expandNav ? <FaAngleDoubleRight /> : <FaAngleDoubleLeft />}
         </button>
 
         <button
           className="dark:text-white lg:px-4 py-2 px-2 mt-8 cursor-pointer hover:rounded-full hover:bg-slate-400 block"
-          aria-role="switch"
+          role="switch"
+          aria-checked={theme}
+          aria-label={`Switched to ${theme ? "dark" : "light"} mode`}
           onClick={() => handleThemeMode()}
         >
-          {theme ? <IoSunny /> : <IoMoon />}
+          {theme ? (
+            <IoSunny aria-hidden="true" />
+          ) : (
+            <IoMoon aria-hidden="true" />
+          )}
         </button>
       </section>
     </>

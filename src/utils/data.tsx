@@ -1,22 +1,25 @@
-type UserDataType = [
-  {
-    name: string;
-    balance: number;
-    accountNumber: number;
-    accountType: string;
-    email: string;
-    phoneNumber: number;
-    address: string;
-    dateOfBirth: string | number;
-    lastTransaction: { date: number; amount: number; description: string };
-    accountStatus: string;
-    createdAt: number | string;
-    currency: string;
-    userType: string;
-    isVerified: boolean;
-  }
-];
-export const usersData: UserDataType = [
+export interface UserDataType {
+  name: string;
+  balance: number;
+  accountNumber: number;
+  accountType: string;
+  email: string;
+  phoneNumber: number;
+  address: string;
+  dateOfBirth: string | number;
+  lastTransaction: {
+    date: number | string;
+    amount: number;
+    description: string;
+  };
+  accountStatus: string;
+  createdAt: number | string;
+  currency: string;
+  userType: string;
+  isVerified: boolean;
+}
+
+export const usersData: UserDataType[] = [
   {
     name: "John Doe",
     balance: 1500.75,
@@ -87,7 +90,7 @@ export const usersData: UserDataType = [
     address: "321 Pine St, Villagetown, USA",
     dateOfBirth: "1995-06-18",
     lastTransaction: {
-      date: "2024-11-13",
+      date: 2024 - 11 - 13,
       amount: -50.0,
       description: "Restaurant Payment",
     },
@@ -107,7 +110,7 @@ export const usersData: UserDataType = [
     address: "456 Birch Rd, Smalltown, USA",
     dateOfBirth: "1990-11-05",
     lastTransaction: {
-      date: "2024-11-16",
+      date: 2024 - 11 - 16,
       amount: 500.0,
       description: "Salary Deposit",
     },

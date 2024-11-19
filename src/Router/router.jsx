@@ -3,19 +3,34 @@ import AdminDashBoard from "../Pages/AdminDashBoard";
 import Layout from "./Layout";
 import TransactionsPage from "../Pages/TransactionsPage";
 import CustomersPage from "../Pages/CustomersPage";
+import SingleClientPage from "../Pages/SingleClientPage";
+import { usersData } from "../utils/data";
+import Error from "../Pages/Error";
 
 const router = createBrowserRouter([
   {
+    path: "/",
     element: <Layout />,
-
+    errorElement: <Error />,
     children: [
       {
-        path: "/",
+        index: true,
         element: <AdminDashBoard />,
       },
       {
-        path: "customers-page",
+        path: "customers",
         element: <CustomersPage />,
+        // loader: () => usersData,
+      },
+      {
+        path: "customers/:accountNumber",
+        element: <SingleClientPage />,
+        loader: async ({ params }) => {
+          const user = usersData.find(
+            (user) => user.accountNumber === Number(params.accountNumber)
+          );
+          return user;
+        },
       },
       {
         path: "/transactions-page",

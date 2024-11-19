@@ -67,7 +67,7 @@ const SideBar = () => {
             </li>
 
             <li className="list-type-none  p-2 hover:rounded-full hover:bg-slate-400">
-              <Link to="customers-page" className="flex items-center gap-1">
+              <Link to="customers" className="flex items-center gap-1">
                 <span>
                   <FaBook />
                 </span>

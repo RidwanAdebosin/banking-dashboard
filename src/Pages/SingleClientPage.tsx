@@ -1,10 +1,13 @@
 // import { usersData } from "../utils/data"
-import { useLoaderData } from "react-router";
+// import { useLoaderData } from "react-router";
 import { Card } from "../utils/Card";
-import { UserDataType } from "../utils/data";
+// import { UserDataType } from "../utils/data";
+import { UsersContext } from "../Context/UsersContext";
+import { useContext } from "react";
 
 const SingleClientPage = () => {
-  const user = useLoaderData() as UserDataType;
+  const user = useContext(UsersContext);
+  // const user = useLoaderData() as UserDataType;
   console.log(user);
 
   return (
@@ -13,10 +16,10 @@ const SingleClientPage = () => {
         <div>
           <Card>
             <p>
-              Account Name: <span>{user.name}</span>
+              Account Name: <span>{user?.name}</span>
             </p>
             <p>
-              Account Number: <span>{user.accountNumber}</span>
+              Account Number: <span>{user?.accountNumber}</span>
             </p>
           </Card>
         </div>

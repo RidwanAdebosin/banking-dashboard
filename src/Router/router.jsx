@@ -4,7 +4,8 @@ import Layout from "./Layout";
 import TransactionsPage from "../Pages/TransactionsPage";
 import CustomersPage from "../Pages/CustomersPage";
 import SingleClientPage from "../Pages/SingleClientPage";
-import { usersData } from "../utils/data";
+// import { usersData } from "../utils/data";
+import { UsersContext } from "../Context/UsersContext";
 import Error from "../Pages/Error";
 
 const router = createBrowserRouter([
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
         path: "customers/:accountNumber",
         element: <SingleClientPage />,
         loader: async ({ params }) => {
-          const user = usersData.find(
+          const user = UsersContext.find(
             (user) => user.accountNumber === Number(params.accountNumber)
           );
           return user;

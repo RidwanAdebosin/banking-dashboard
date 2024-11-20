@@ -1,11 +1,14 @@
-import { Link, useLoaderData } from "react-router-dom";
-import { UserDataType, usersData } from "../utils/data";
+import { Link } from "react-router-dom";
+import { UserDataType } from "../utils/data";
+import { useContext } from "react";
+import { UsersContext } from "../Context/UsersContext";
 
 const CustomersPage = () => {
   // const usersData = useLoaderData() as UserDataType[];
-  const handleTransfer = () => {
-    // Implement transfer logic here
-  };
+  // const handleTransfer = () => {
+  // };
+
+  const usersData = useContext(UsersContext);
 
   return (
     <section className="relative flex flex-col h-screen w-full text-gray-700 bg-white dark:bg-blue-950 dark:text-white rounded-lg bg-clip-border py-4">

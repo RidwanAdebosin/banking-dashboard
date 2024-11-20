@@ -1,9 +1,8 @@
-import { UserDataType, usersData } from "../utils/data";
-import { FilterContext, FilterProvider } from "../Context/FilterContext";
-import { useContext } from "react";
+import { UserDataType } from "../utils/data";
+import { FilterProvider, useFilter } from "../Context/FilterContext";
 
 export const Users = () => {
-  const { onFilteredUser } = useContext(FilterContext);
+  const { onFilteredUser } = useFilter();
   // const handleTransfer = () => {};
   return (
     <FilterProvider>

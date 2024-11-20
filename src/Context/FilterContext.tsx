@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { usersData } from "../utils/data";
 
 //Creating a filter context custom provider
@@ -35,4 +35,9 @@ const FilterProvider = ({ children }) => {
   );
 };
 
-export { FilterContext, FilterProvider };
+const useFilter = () => {
+  const context = useContext(FilterContext);
+  return context;
+};
+
+export { useFilter, FilterProvider };

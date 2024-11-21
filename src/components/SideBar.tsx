@@ -41,7 +41,7 @@ const SideBar = () => {
               </Link>
             </li>
             <li className="p-2 hover:rounded-full hover:bg-slate-400">
-              <Link to="customers-page">
+              <Link to="customers">
                 <FaBook />
               </Link>
             </li>

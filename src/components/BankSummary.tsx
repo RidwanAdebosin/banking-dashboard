@@ -4,21 +4,21 @@ import { Card } from "../utils/Card";
 
 export const BankSummary = () => {
   const filterContext = useFilter();
-  const { onSearchUser } = filterContext;
+  const { onSearchUser, bankBalance, onFilteredUser } = filterContext;
   return (
     <>
       <section className="grid grid-cols-2 gap-2 lg:flex justify-between h-">
         <Card>
           <div className="lg:flex gap-4">
             <p className="text-[#64748B]">Total Money in Bank: </p>
-            <strong>5,000000</strong>
+            <strong> ₦{bankBalance}</strong>
           </div>
         </Card>
 
         <Card>
           <div className="lg:flex gap-4">
             <p className="text-[#64748B]">Active Customers: </p>
-            <strong>100</strong>
+            <strong>{onFilteredUser.length}</strong>
           </div>
         </Card>
 
@@ -31,7 +31,7 @@ export const BankSummary = () => {
         <form
           onSubmit={(e) => e.preventDefault()}
           action="search"
-          className=" mt-4 hidden md:block"
+          className="mt-4 hidden md:block"
         >
           <label htmlFor="search">
             <input

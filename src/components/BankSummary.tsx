@@ -17,7 +17,7 @@ export const BankSummary = () => {
 
         <Card>
           <div className="lg:flex gap-4">
-            <p className="text-[#64748B]">Active Customers: </p>
+            <p className="text-[#64748B] p-4">Active Customers: </p>
             <strong>{onFilteredUser.length}</strong>
           </div>
         </Card>

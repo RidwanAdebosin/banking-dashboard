@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import Modal from "react-modal";
-import { Formik } from "formik";
+import { Formik, FormikProps, useFormik } from "formik";
 
 const customStyles = {
   content: {
@@ -15,6 +15,12 @@ const customStyles = {
 
 // Modal.setAppElement("#PaymentModal");
 
+interface FormValues {
+  name: string;
+  amount: string;
+  description: string;
+}
+
 const PaymentModal = ({
   isOpen,
   onClose,
@@ -22,6 +28,17 @@ const PaymentModal = ({
   isOpen: boolean;
   onClose: () => void;
 }) => {
+  //pass in the initial values for the form fills
+  const formik: FormikProps<FormValues> = useFormik<FormValues>({
+    initialValues: {
+      name: "",
+      amount: "",
+      description: "",
+    },
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
   const subtitle = useRef<HTMLHeadingElement>(null);
 
   function afterOpenModal() {
@@ -39,16 +56,7 @@ const PaymentModal = ({
       contentLabel="Payment Modal"
     >
       <h2 ref={subtitle}>Transfer</h2>
-      <Formik
-        initialValues={{ amount: "", password: "" }}
-        validate={(values) => {
-        //   const errors = {};
-        //   if (!values.description) {
-        //     errors.descriptiom = 'Required'
-        //   } 
-        // }}
-        // onSubmit={(values, {setSubmitting)}
-      >
+      <Formik>
         <form action="submit" className="grid grid-cols-1 gap-2">
           <label htmlFor="name" className="text-sm">
             Selected Destination Account
@@ -56,9 +64,12 @@ const PaymentModal = ({
           <input
             type="text"
             id="name"
+            name="name"
+            value={formik.values.name}
+            onChange={formik.handleChange}
             disabled
             placeholder="Ridwan"
-            className="border mb-2 px-2 rounded-sm"
+            className="border mb-2 px-2 rounded-xs"
           />
           <label htmlFor="amount" className="text-sm">
             Amount
@@ -66,8 +77,11 @@ const PaymentModal = ({
           <input
             type="amount"
             id="amount"
+            name="amount"
+            value={formik.values.amount}
+            onChange={formik.handleChange}
             placeholder="₦"
-            className="border mb-2 px-2 rounded-sm"
+            className="border mb-2 px-2 rounded-xs"
             required
           />
           <label htmlFor="description" className="text-sm">
@@ -76,11 +90,14 @@ const PaymentModal = ({
           <input
             type="text"
             id="description"
+            name="description"
+            value={formik.values.description}
+            onChange={formik.handleChange}
             placeholder="Transaction Description"
-            className="border mb-2 px-2 rounded-sm"
+            className="border mb-2 px-2 rounded-xs"
             required
           />
-          <button className="bg-[#606c38] text-white p-2 rounded-sm flex justify-center w-full">
+          <button className="bg-[#606c38] text-white p-2 rounded-xs flex justify-center w-full">
             Continue
           </button>
         </form>

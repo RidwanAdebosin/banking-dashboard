@@ -1,6 +1,5 @@
 import { BankSummary } from "../components/BankSummary";
 import { Users } from "../components/Users";
-import { FilterProvider } from "../Context/FilterContext";
 
 const AdminDashBoard = () => {
   return (

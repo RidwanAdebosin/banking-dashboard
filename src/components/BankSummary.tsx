@@ -1,10 +1,14 @@
+import { useContext } from "react";
 import { useFilter } from "../Context/FilterContext";
+import { PaymentContext } from "../Context/PaymentContext";
 import { Button } from "../utils/Button";
 import { Card } from "../utils/Card";
 
 export const BankSummary = () => {
   const filterContext = useFilter();
-  const { onSearchUser, bankBalance, onFilteredUser } = filterContext;
+  const { bankBalance } = useContext(PaymentContext);
+
+  const { onSearchUser, onFilteredUser } = filterContext;
   return (
     <>
       <section className="grid grid-cols-2 gap-2 lg:flex justify-between h-">
@@ -17,7 +21,7 @@ export const BankSummary = () => {
 
         <Card>
           <div className="lg:flex gap-4">
-            <p className="text-[#64748B] p-4">Active Customers: </p>
+            <p className="text-[#64748B]">Active Customers: </p>
             <strong>{onFilteredUser.length}</strong>
           </div>
         </Card>

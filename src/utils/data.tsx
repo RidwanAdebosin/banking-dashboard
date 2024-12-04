@@ -22,7 +22,7 @@ export interface UserDataType {
 export const usersData: UserDataType[] = [
   {
     name: "John Doe",
-    balance: 1500.75,
+    balance: 0,
     accountNumber: 1234567890,
     accountType: "Checking",
     email: "johndoe@example.com",

@@ -7,6 +7,7 @@ import SingleClientPage from "../Pages/SingleClientPage";
 // import { usersData } from "../utils/data";
 import { UsersContext } from "../Context/UsersContext";
 import Error from "../Pages/Error";
+import PaymentModal from "../components/PaymentModal";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,18 @@ const router = createBrowserRouter([
         path: "/transactions-page",
         element: <TransactionsPage />,
       },
+
+      // {
+      //   path: "transactions-page/:payment",
+      //   element: <PaymentModal />,
+      //   loader: ({ params }) => {
+      //     const user = UsersContext.find(
+      //       (user) => user.accountNumber === Number(params.accountNumber)
+      //     );
+      //     console.log(user);
+      //     return user;
+      //   },
+      // },
     ],
   },
 ]);

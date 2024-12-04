@@ -1,7 +1,8 @@
-import { useRef } from "react";
 import Modal from "react-modal";
-import { useFormik, FormikProps } from "formik";
-import { useFilter } from "../Context/FilterContext";
+import { Field, ErrorMessage, Formik, FormikHelpers, Form } from "formik";
+import * as Yup from "yup";
+import { useContext } from "react";
+import { PaymentContext } from "../Context/PaymentContext";
 
 const customStyles = {
   content: {
@@ -11,121 +12,130 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    width: "50%",
+    paddingBlock: "2rem",
   },
 };
 
 interface FormValues {
-  name: string;
   amount: string;
   description: string;
 }
 
+interface User {
+  accountNumber: string;
+  name: string;
+  balance: number;
+}
+
+const initialValues: FormValues = {
+  amount: "",
+  description: "",
+};
+
+const validationSchema = Yup.object().shape({
+  amount: Yup.number().min(1).required("Please enter an amount"),
+  description: Yup.string().min(2).required("Enter description"),
+});
+
 const PaymentModal = ({
   isOpen,
   onClose,
+  user,
 }: {
   isOpen: boolean;
   onClose: () => void;
+  user: User;
 }) => {
-  const { onFilteredUser } = useFilter();
-  const subtitle = useRef<HTMLHeadingElement>(null);
+  const { accounts, setAccounts, bankBalance, setBankBalance } =
+    useContext(PaymentContext);
 
-  const formik: FormikProps<FormValues> = useFormik<FormValues>({
-    initialValues: {
-      name: onFilteredUser?.name || "",
-      amount: "",
-      description: "",
-    },
-    validate: (values) => {
-      const errors: { [key: string]: string } = {};
-      if (!values.name) errors.name = "Required";
-      if (!values.amount) {
-        errors.amount = "Amount is required";
-      } else if (!/^\d+(\.\d{1,2})?$/.test(values.amount)) {
-        errors.amount = "Must be a valid number";
-      } else if (Number(values.amount) <= 0) {
-        errors.amount = "Must be greater than zero";
-      }
-      if (!values.description) errors.description = "Required";
-      return errors;
-    },
-    onSubmit: (values) => {
-      console.log("Form Submitted: ", values);
-    },
-  });
+  const handleSubmit = (
+    values: FormValues,
+    { setSubmitting, resetForm }: FormikHelpers<FormValues>
+  ) => {
+    const amount = Number(values.amount);
 
-  function afterOpenModal() {
-    if (subtitle.current) subtitle.current.style.color = "#f00";
-  }
+    // Validate the transfer amount
+    if (amount <= 0 || amount > bankBalance) {
+      alert("Invalid amount or insufficient bank balance.");
+      setSubmitting(false);
+      return;
+    }
+
+    // Deduct from bank balance and add to the user's balance
+    const updatedAccounts = accounts.map((account) =>
+      account.accountNumber === user.accountNumber
+        ? { ...account, balance: account.balance + amount }
+        : account
+    );
+    // Update state
+    setAccounts(updatedAccounts);
+    setBankBalance((prevBalance) => prevBalance - amount);
+
+    // console.log("Updated Accounts in Context:", updatedAccounts);
+    // Reset form and close modal
+    setSubmitting(false);
+    resetForm();
+    onClose();
+  };
 
   return (
     <Modal
       isOpen={isOpen}
-      onAfterOpen={afterOpenModal}
       onRequestClose={onClose}
       style={customStyles}
       contentLabel="Payment Modal"
     >
-      <h2 ref={subtitle}>Transfer</h2>
-      <form className="grid grid-cols-1 gap-2" onSubmit={formik.handleSubmit}>
-        <label htmlFor="name" className="text-sm">
-          Selected Destination Account
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formik.values.name}
-          disabled
-          className="border mb-2 px-2 rounded"
-        />
-        <input type="hidden" id="name" name="name" value={formik.values.name} />
-        <label htmlFor="amount" className="text-sm">
-          Amount
-        </label>
-        <input
-          type="number"
-          id="amount"
-          name="amount"
-          value={formik.values.amount}
-          onChange={(e) =>
-            formik.setFieldValue(
-              "amount",
-              e.target.value === "0" ? "" : e.target.value
-            )
-          }
-          placeholder="₦"
-          className={`border mb-2 px-2 rounded ${
-            formik.errors.amount ? "border-red-500" : ""
-          }`}
-        />
-        {formik.errors.amount && (
-          <div className="text-red-500 text-sm">{formik.errors.amount}</div>
+      <h2>Transfer</h2>
+      <Formik
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}
+        initialValues={initialValues}
+      >
+        {(formik) => (
+          <Form className="grid grid-cols-1 gap-2">
+            <p>Selected Destination Account: {user.name}</p>
+            <label htmlFor="amount" className="text-sm">
+              Amount
+            </label>
+            <Field
+              type="text"
+              id="amount"
+              name="amount"
+              placeholder="₦"
+              className="border mb-2 px-2 rounded"
+            />
+            <ErrorMessage
+              name="amount"
+              component="div"
+              className="text-red-600 text-xs mt-1"
+            />
+            <label htmlFor="description" className="text-sm">
+              Transaction Description
+            </label>
+            <Field
+              type="text"
+              id="description"
+              name="description"
+              placeholder="Transaction Description"
+              className="border mb-2 px-2 rounded"
+            />
+            <ErrorMessage
+              name="description"
+              component="div"
+              className="text-red-600 text-xs mt-1"
+            />
+            <button
+              type="submit"
+              disabled={!formik.isValid || formik.isSubmitting}
+              className="bg-[#606c38] text-white p-2 rounded flex justify-center w-full cursor-pointer"
+            >
+              {formik.isSubmitting ? "Initializing" : "Pay"}
+            </button>
+          </Form>
         )}
-        <label htmlFor="description" className="text-sm">
-          Transaction Description
-        </label>
-        <input
-          type="text"
-          id="description"
-          name="description"
-          value={formik.values.description}
-          onChange={formik.handleChange}
-          placeholder="Transaction Description"
-          className="border mb-2 px-2 rounded"
-        />
-        {formik.errors.description && (
-          <div className="text-red-500 text-sm">
-            {formik.errors.description}
-          </div>
-        )}
-        <button
-          type="submit"
-          className="bg-[#606c38] text-white p-2 rounded flex justify-center w-full"
-        >
-          Continue
-        </button>
-      </form>
+      </Formik>
     </Modal>
   );
 };

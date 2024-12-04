@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FilterProvider, useFilter } from "../Context/FilterContext";
 import PaymentModal from "./PaymentModal";
 import { UserDataType } from "../utils/data";
+import { PaymentContext } from "../Context/PaymentContext";
 
 export const Users = () => {
-  const { onFilteredUser, userBalance } = useFilter();
+  const { onFilteredUser } = useFilter();
+  const { accounts, userBalance, setUserBalance } = useContext(PaymentContext);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
   const [selectedUser, setSelectedUser] = useState<UserDataType | null>(null);
 
   const handleOpenModal = (user: UserDataType) => {
@@ -18,6 +19,9 @@ export const Users = () => {
     setSelectedUser(null);
     setModalIsOpen(false);
   };
+  console.log(accounts[0].balance);
+  const newBalance = accounts.map((account, index) => account.balance);
+  console.log(newBalance);
 
   return (
     <FilterProvider>
@@ -41,15 +45,13 @@ export const Users = () => {
                 <td className="font-semibold">{user.name}</td>
                 <td>{user.accountNumber}</td>
                 <td
-                  className={`${
-                    user.accountStatus === "Active"
-                      ? "text-green-800 font-semibold hidden md:flex"
-                      : "text-red-700 font-semibold hidden md:flex"
-                  }`}
+                  className={`${user.accountStatus === "Active" ? "text-green-800" : "text-red-700"}`}
                 >
                   {user.accountStatus}
                 </td>
-                <td>₦{userBalance}</td>
+                <td>₦{newBalance}</td>
+                <td>₦{user.balance}</td>
+
                 <td className="flex justify-end my-2">
                   {user.accountStatus === "Active" ? (
                     <button
@@ -71,7 +73,14 @@ export const Users = () => {
             ))}
           </tbody>
         </table>
-        <PaymentModal isOpen={modalIsOpen} onClose={handleCloseModal} />
+
+        {selectedUser && (
+          <PaymentModal
+            user={selectedUser}
+            isOpen={modalIsOpen}
+            onClose={handleCloseModal}
+          />
+        )}
       </section>
     </FilterProvider>
   );

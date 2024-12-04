@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-// import { usersData } from "../utils/data";
+import { usersData } from "../utils/data";
 
 //Creating a filter context custom provider
 const FilterContext = createContext({});
@@ -8,8 +8,6 @@ const FilterContext = createContext({});
 const FilterProvider = ({ children }) => {
   const [searchUser, setSearchUser] = useState("");
   const [filteredUser, setFilteredUser] = useState(usersData);
-  const [userBalance, setUserBalance] = useState(10);
-  const [bankBalance, setBankBalance] = useState(1000000000);
   const handleSearchUser = (e): void => {
     e.preventDefault();
     // saving the user input into a variable
@@ -29,18 +27,11 @@ const FilterProvider = ({ children }) => {
     // }
   };
 
-  const handlePayUser = () => {
-    alert("User Paid");
-  };
-
   return (
     <FilterContext.Provider
       value={{
         onSearchUser: handleSearchUser,
         onFilteredUser: filteredUser,
-        onPayUser: handlePayUser,
-        userBalance,
-        bankBalance,
       }}
     >
       {children}

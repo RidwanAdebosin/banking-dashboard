@@ -47,7 +47,7 @@ const PaymentModal = ({
   onClose: () => void;
   user: User;
 }) => {
-  const { accounts, setAccounts, bankBalance, setBankBalance } =
+  const { accounts, setAccounts, bankBalance, setBankBalance, selectedUser } =
     useContext(PaymentContext);
 
   const handleSubmit = (
@@ -64,20 +64,24 @@ const PaymentModal = ({
     }
 
     // Deduct from bank balance and add to the user's balance
-    const updatedAccounts = accounts.map((account) =>
-      account.accountNumber === user.accountNumber
-        ? { ...account, balance: account.balance + amount }
-        : account
-    );
-    // Update state
-    setAccounts(updatedAccounts);
-    setBankBalance((prevBalance) => prevBalance - amount);
+    if (selectedUser) {
+      const updatedAccounts = accounts.map((account) =>
+        account.accountNumber === user.accountNumber ||
+        account.user === selectedUser
+          ? { ...account, balance: account.balance + amount }
+          : account
+      );
 
-    // console.log("Updated Accounts in Context:", updatedAccounts);
-    // Reset form and close modal
-    setSubmitting(false);
-    resetForm();
-    onClose();
+      // Update state
+      setAccounts(updatedAccounts);
+      setBankBalance((prevBalance) => prevBalance - amount);
+
+      console.log("Updated Accounts in Context:", updatedAccounts);
+      // Reset form and close modal
+      setSubmitting(false);
+      resetForm();
+      onClose();
+    }
   };
 
   return (

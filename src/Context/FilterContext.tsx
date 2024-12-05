@@ -1,5 +1,6 @@
-import { createContext, useContext, useState } from "react";
-import { usersData } from "../utils/data";
+import { createContext, useContext, useEffect, useState } from "react";
+// import { usersData } from "../utils/data";
+import { PaymentContext } from "./PaymentContext";
 
 //Creating a filter context custom provider
 const FilterContext = createContext({});
@@ -7,7 +8,16 @@ const FilterContext = createContext({});
 //Create a filter provider
 const FilterProvider = ({ children }) => {
   const [searchUser, setSearchUser] = useState("");
-  const [filteredUser, setFilteredUser] = useState(usersData);
+
+  const { accounts } = useContext(PaymentContext);
+  const [filteredUser, setFilteredUser] = useState([]);
+
+  useEffect(() => {
+    if (accounts && Array.isArray(accounts)) {
+      setFilteredUser(accounts);
+    }
+  }, [accounts]);
+
   const handleSearchUser = (e): void => {
     e.preventDefault();
     // saving the user input into a variable
@@ -15,16 +25,12 @@ const FilterProvider = ({ children }) => {
     setSearchUser(searchedUser);
 
     // Create a new filteredItem based on the searched query
-    const filteredItem = usersData.filter(
+    const filteredItem = accounts?.filter(
       (user) =>
         user?.name?.toLowerCase().includes(searchedUser) ||
         user?.accountNumber?.toLocaleString().includes(searchedUser)
     );
     setFilteredUser(filteredItem);
-
-    // if (filteredItem.length < 0) {
-    //   return filteredUser;
-    // }
   };
 
   return (
@@ -32,6 +38,7 @@ const FilterProvider = ({ children }) => {
       value={{
         onSearchUser: handleSearchUser,
         onFilteredUser: filteredUser,
+        accounts,
       }}
     >
       {children}

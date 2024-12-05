@@ -1,14 +1,22 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { UserDataType, usersData } from "../utils/data";
 
 const PaymentContext = createContext({});
 
 const PaymentProvider = ({ children }: { children: ReactNode }) => {
-  const [accounts, setAccounts] = useState<UserDataType[]>(usersData); // Fixed initial state
+  // const [accounts, setAccounts] = useState<UserDataType[]>([]);
+  const [accounts, setAccounts] = useState<UserDataType[]>(usersData);
+
   const [bankBalance, setBankBalance] = useState(100000000);
+  const [selectedUser, setSelectedUser] = useState<UserDataType | null>(null);
 
-  // console.log("Updated Accounts in Context:", accounts);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setAccounts(usersData);
+  //   }, 1000);
+  // }, []);
 
+  // console.log(accounts);
   return (
     <PaymentContext.Provider
       value={{
@@ -16,6 +24,8 @@ const PaymentProvider = ({ children }: { children: ReactNode }) => {
         setAccounts,
         bankBalance,
         setBankBalance,
+        selectedUser,
+        setSelectedUser,
       }}
     >
       {children}

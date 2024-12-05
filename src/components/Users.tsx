@@ -1,14 +1,15 @@
 import { useContext, useState } from "react";
-import { FilterProvider, useFilter } from "../Context/FilterContext";
+import { FilterProvider } from "../Context/FilterContext";
 import PaymentModal from "./PaymentModal";
 import { UserDataType } from "../utils/data";
 import { PaymentContext } from "../Context/PaymentContext";
 
 export const Users = () => {
-  const { onFilteredUser } = useFilter();
-  const { accounts, userBalance, setUserBalance } = useContext(PaymentContext);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<UserDataType | null>(null);
+  // const singleAccount = accounts.map((account) => account.balance);
+  const { accounts, selectedUser, setSelectedUser } =
+    useContext(PaymentContext);
+  // console.log(singleAccount);
 
   const handleOpenModal = (user: UserDataType) => {
     setSelectedUser(user);
@@ -19,9 +20,6 @@ export const Users = () => {
     setSelectedUser(null);
     setModalIsOpen(false);
   };
-  console.log(accounts[0].balance);
-  const newBalance = accounts.map((account, index) => account.balance);
-  console.log(newBalance);
 
   return (
     <FilterProvider>
@@ -37,7 +35,7 @@ export const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {onFilteredUser.map((user: UserDataType) => (
+            {accounts.map((user: UserDataType) => (
               <tr
                 key={user.accountNumber}
                 className="hover:border-b-2 hover:border-black"
@@ -49,7 +47,6 @@ export const Users = () => {
                 >
                   {user.accountStatus}
                 </td>
-                <td>₦{newBalance}</td>
                 <td>₦{user.balance}</td>
 
                 <td className="flex justify-end my-2">

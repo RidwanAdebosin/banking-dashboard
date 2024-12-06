@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-// import { usersData } from "../utils/data";
 import { PaymentContext } from "./PaymentContext";
 
 //Creating a filter context custom provider

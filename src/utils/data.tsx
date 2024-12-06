@@ -42,7 +42,7 @@ export const usersData: UserDataType[] = [
   },
   {
     name: "Jane Smith",
-    balance: 2800.5,
+    balance: 0,
     accountNumber: 9876543210,
     accountType: "Savings",
     email: "janesmith@example.com",
@@ -62,7 +62,7 @@ export const usersData: UserDataType[] = [
   },
   {
     name: "Alice Johnson",
-    balance: 5000.0,
+    balance: 0,
     accountNumber: 1122334455,
     accountType: "Business",
     email: "alice.johnson@business.com",
@@ -82,7 +82,7 @@ export const usersData: UserDataType[] = [
   },
   {
     name: "Michael Williams",
-    balance: 1250.0,
+    balance: 0,
     accountNumber: 9988776655,
     accountType: "Checking",
     email: "michael.williams@example.com",
@@ -102,7 +102,7 @@ export const usersData: UserDataType[] = [
   },
   {
     name: "Sarah Lee",
-    balance: 7800.25,
+    balance: 0,
     accountNumber: 5566778899,
     accountType: "Savings",
     email: "sarah.lee@example.com",
@@ -122,7 +122,7 @@ export const usersData: UserDataType[] = [
   },
   {
     name: "David Brown",
-    balance: 3200.3,
+    balance: 0,
     accountNumber: 6677889900,
     accountType: "Checking",
     email: "david.brown@example.com",
@@ -142,7 +142,7 @@ export const usersData: UserDataType[] = [
   },
   {
     name: "Emily Davis",
-    balance: 550.75,
+    balance: 0,
     accountNumber: 4433221100,
     accountType: "Checking",
     email: "emily.davis@example.com",
@@ -162,7 +162,7 @@ export const usersData: UserDataType[] = [
   },
   {
     name: "William Martinez",
-    balance: 920.1,
+    balance: 0,
     accountNumber: 2233445566,
     accountType: "Business",
     email: "william.martinez@business.com",
@@ -182,7 +182,7 @@ export const usersData: UserDataType[] = [
   },
   {
     name: "Olivia Moore",
-    balance: 3600.9,
+    balance: 0,
     accountNumber: 9988771122,
     accountType: "Savings",
     email: "olivia.moore@example.com",
@@ -202,7 +202,7 @@ export const usersData: UserDataType[] = [
   },
   {
     name: "James Taylor",
-    balance: 450.4,
+    balance: 0,
     accountNumber: 6677881122,
     accountType: "Checking",
     email: "james.taylor@example.com",

@@ -6,10 +6,8 @@ import { PaymentContext } from "../Context/PaymentContext";
 
 export const Users = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  // const singleAccount = accounts.map((account) => account.balance);
   const { accounts, selectedUser, setSelectedUser } =
     useContext(PaymentContext);
-  // console.log(singleAccount);
 
   const handleOpenModal = (user: UserDataType) => {
     setSelectedUser(user);

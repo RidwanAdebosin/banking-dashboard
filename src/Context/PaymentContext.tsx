@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useState } from "react";
 import { UserDataType, usersData } from "../utils/data";
+import { createContext, ReactNode, useState } from "react";
 
 const PaymentContext = createContext({});
 

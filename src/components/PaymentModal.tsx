@@ -1,8 +1,8 @@
-import Modal from "react-modal";
-import { Field, ErrorMessage, Formik, FormikHelpers, Form } from "formik";
 import * as Yup from "yup";
+import Modal from "react-modal";
 import { useContext } from "react";
 import { PaymentContext } from "../Context/PaymentContext";
+import { Field, ErrorMessage, Formik, FormikHelpers, Form } from "formik";
 
 const customStyles = {
   content: {

@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
-import { FilterProvider } from "../Context/FilterContext";
 import PaymentModal from "./PaymentModal";
 import { UserDataType } from "../utils/data";
+import { useContext, useState } from "react";
+import { FilterProvider } from "../Context/FilterContext";
 import { PaymentContext } from "../Context/PaymentContext";
 
 export const Users = () => {

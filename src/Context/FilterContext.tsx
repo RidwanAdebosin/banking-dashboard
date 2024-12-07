@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
 import { PaymentContext } from "./PaymentContext";
+import { createContext, useContext, useEffect, useState } from "react";
 
 //Creating a filter context custom provider
 const FilterContext = createContext({});

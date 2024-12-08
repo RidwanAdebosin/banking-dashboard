@@ -39,13 +39,13 @@ const validationSchema = Yup.object().shape({
 });
 
 const PaymentModal = ({
+  user,
   isOpen,
   onClose,
-  user,
 }: {
+  user: User;
   isOpen: boolean;
   onClose: () => void;
-  user: User;
 }) => {
   const { accounts, setAccounts, bankBalance, setBankBalance, selectedUser } =
     useContext(PaymentContext);

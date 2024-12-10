@@ -1,14 +1,19 @@
 import { useContext } from "react";
-import { useFilter } from "../Context/FilterContext";
-import { PaymentContext } from "../Context/PaymentContext";
-import { Button } from "../utils/Button";
 import { Card } from "../utils/Card";
+import { Button } from "../utils/Button";
+import { FilterContext } from "../Context/FilterContext";
+import { PaymentContext } from "../Context/PaymentContext";
 
 export const BankSummary = () => {
-  const filterContext = useFilter();
-  const { bankBalance } = useContext(PaymentContext);
+  // const filterContext = useFilter();
+  const { bankBalance, accounts } = useContext(PaymentContext);
 
-  const { onSearchUser, onFilteredUser } = filterContext;
+  const { handleSearchUser } = useContext(FilterContext);
+  // console.log(onSearchUser);
+  const activeAccount = accounts.filter(
+    (account) => account.accountStatus === "Active"
+  );
+
   return (
     <>
       <section className="grid grid-cols-2 gap-2 lg:flex justify-between h-">
@@ -22,7 +27,7 @@ export const BankSummary = () => {
         <Card>
           <div className="lg:flex gap-4">
             <p className="text-[#64748B]">Active Customers: </p>
-            <strong>{onFilteredUser.length}</strong>
+            <strong>{activeAccount.length}</strong>
           </div>
         </Card>
 
@@ -43,17 +48,17 @@ export const BankSummary = () => {
               id="search"
               className="w-[70%] border rounded-lg p-2 mr-4"
               placeholder="search user.."
-              onChange={onSearchUser}
+              onChange={handleSearchUser}
             />
           </label>
-          <Button onClick={() => onSearchUser()}>Search</Button>
+          <Button onClick={() => handleSearchUser()}>Search</Button>
         </form>
       </section>
 
       <form
         action="search"
         className="w-full mt-4 md:hidden"
-        onSubmit={onSearchUser}
+        onSubmit={handleSearchUser}
       >
         <label htmlFor="text">
           <input
@@ -61,10 +66,10 @@ export const BankSummary = () => {
             id="text"
             className="w-[70%] border rounded-lg p-2 mr-2"
             placeholder="search user.."
-            onChange={onSearchUser}
+            onChange={handleSearchUser}
           />
         </label>
-        <Button onClick={onSearchUser}>Search</Button>
+        <Button onClick={handleSearchUser}>Search</Button>
       </form>
     </>
   );

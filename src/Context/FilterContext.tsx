@@ -9,13 +9,15 @@ const FilterProvider = ({ children }) => {
   const [searchUser, setSearchUser] = useState("");
 
   const { accounts } = useContext(PaymentContext);
-  const [filteredUser, setFilteredUser] = useState([]);
+  const [filteredUser, setFilteredUser] = useState();
+  // console.log(accounts);
 
   useEffect(() => {
     if (accounts && Array.isArray(accounts)) {
       setFilteredUser(accounts);
     }
   }, [accounts]);
+  // console.log(filteredUser);
 
   const handleSearchUser = (e): void => {
     e.preventDefault();
@@ -32,12 +34,14 @@ const FilterProvider = ({ children }) => {
     setFilteredUser(filteredItem);
   };
 
+  // console.log(filteredUser);
+  // console.log(onFilteredUser);
   return (
     <FilterContext.Provider
       value={{
-        onSearchUser: handleSearchUser,
-        onFilteredUser: filteredUser,
-        accounts,
+        handleSearchUser,
+        filteredUser,
+        // accounts,
       }}
     >
       {children}
@@ -45,9 +49,9 @@ const FilterProvider = ({ children }) => {
   );
 };
 
-const useFilter = () => {
-  const context = useContext(FilterContext);
-  return context;
-};
+// const useFilter = () => {
+//   const context = useContext(FilterContext);
+//   return context;
+// };
 
-export { useFilter, FilterProvider };
+export { FilterContext, FilterProvider };

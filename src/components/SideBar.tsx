@@ -6,21 +6,34 @@ import {
   FaAngleDoubleRight,
   FaAngleDoubleLeft,
 } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMoon, IoSunny } from "react-icons/io5";
 
 const SideBar = () => {
   const [expandNav, setExpandNav] = useState(false);
-  const [theme, setTheme] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme === "dark";
+  });
 
   // function toggling the aside bar
   const handleExpandNav = (): void => {
-    setExpandNav(!expandNav);
+    setExpandNav((prev) => !prev);
   };
+
+  useEffect(() => {
+    if (theme) {
+      document.body.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.body.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [theme]);
 
   // function handling the dark mode
   const handleThemeMode = (): void => {
-    setTheme(!theme);
+    setTheme((theme) => !theme);
     document.body.classList.toggle("dark");
   };
 

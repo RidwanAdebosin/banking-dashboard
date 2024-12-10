@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { UserDataType } from "../utils/data";
 import { Button } from "../utils/Button";
-import { useFilter, FilterProvider } from "../Context/FilterContext";
+import { FilterContext, FilterProvider } from "../Context/FilterContext";
+import { useContext } from "react";
 
 const CustomersPage = () => {
-  const { onSearchUser, onFilteredUser } = useFilter();
+  const { onSearchUser, onFilteredUser } = useContext(FilterContext);
 
   return (
     <FilterProvider>

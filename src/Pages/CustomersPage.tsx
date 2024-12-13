@@ -5,7 +5,7 @@ import { FilterContext, FilterProvider } from "../Context/FilterContext";
 import { useContext } from "react";
 
 const CustomersPage = () => {
-  const { onSearchUser, onFilteredUser } = useContext(FilterContext);
+  const { onSearchUser, onFilteredUser, accounts } = useContext(FilterContext);
 
   return (
     <FilterProvider>
@@ -37,7 +37,7 @@ const CustomersPage = () => {
             </tr>
           </thead>
           <tbody>
-            {onFilteredUser.map((user: UserDataType) => (
+            {accounts.map((user: UserDataType) => (
               <tr
                 key={user?.accountNumber}
                 className="hover:bg-slate-50 dark:hover:bg-slate-900"

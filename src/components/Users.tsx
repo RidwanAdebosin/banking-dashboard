@@ -1,15 +1,15 @@
 import PaymentModal from "./PaymentModal";
 import { UserDataType } from "../utils/data";
 import { useContext, useState } from "react";
-import { FilterContext } from "../Context/FilterContext";
+// import { FilterContext } from "../Context/FilterContext";
 import { PaymentContext } from "../Context/PaymentContext";
 
 export const Users = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { accounts, selectedUser, setSelectedUser } =
     useContext(PaymentContext);
-  const { filteredUser } = useContext(FilterContext);
-  console.log(filteredUser);
+  // const { filteredUser } = useContext(FilterContext);
+  // console.log(accounts);
 
   const handleOpenModal = (user: UserDataType) => {
     setSelectedUser(user);

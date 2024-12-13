@@ -41,7 +41,7 @@ const FilterProvider = ({ children }) => {
       value={{
         handleSearchUser,
         filteredUser,
-        // accounts,
+        accounts,
       }}
     >
       {children}

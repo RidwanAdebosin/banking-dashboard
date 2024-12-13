@@ -7,7 +7,7 @@ import SingleClientPage from "../Pages/SingleClientPage";
 // import { usersData } from "../utils/data";
 import { UsersContext } from "../Context/UsersContext";
 import Error from "../Pages/Error";
-import PaymentModal from "../components/PaymentModal";
+// import PaymentModal from "../components/PaymentModal";
 
 const router = createBrowserRouter([
   {

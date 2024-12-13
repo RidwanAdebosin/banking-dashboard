@@ -1,10 +1,13 @@
 import { RouterProvider } from "react-router-dom";
 import router from "./Router/router";
 import "./App.css";
+import { PaymentProvider } from "./Context/PaymentContext";
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <PaymentProvider>
+        <RouterProvider router={router} />
+      </PaymentProvider>
     </>
   );
 }

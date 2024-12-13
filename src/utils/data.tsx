@@ -8,7 +8,7 @@ export interface UserDataType {
   address: string;
   dateOfBirth: string | number;
   lastTransaction: {
-    date: number | string;
+    date: number | string | object;
     amount: number;
     description: string;
   };
@@ -30,9 +30,9 @@ export const usersData: UserDataType[] = [
     address: "123 Main St, Anytown, USA",
     dateOfBirth: "1985-08-15",
     lastTransaction: {
-      date: 2024 - 11 - 15,
-      amount: -200.0,
-      description: "ATM Withdrawal",
+      date: "",
+      amount: 0,
+      description: "",
     },
     accountStatus: "Active",
     createdAt: "2020-01-01",
@@ -50,9 +50,9 @@ export const usersData: UserDataType[] = [
     address: "456 Oak St, Somecity, USA",
     dateOfBirth: "1992-12-22",
     lastTransaction: {
-      date: 2024 - 11 - 14,
-      amount: -50.0,
-      description: "Grocery Store Purchase",
+      date: "",
+      amount: 0,
+      description: "",
     },
     accountStatus: "Active",
     createdAt: "2018-05-15",
@@ -70,9 +70,9 @@ export const usersData: UserDataType[] = [
     address: "789 Maple Ave, Bigcity, USA",
     dateOfBirth: "1980-04-30",
     lastTransaction: {
-      date: 2024 - 11 - 10,
-      amount: -1000.0,
-      description: "Supplier Payment",
+      date: "",
+      amount: 0,
+      description: "",
     },
     accountStatus: "Active",
     createdAt: "2015-02-20",
@@ -90,9 +90,9 @@ export const usersData: UserDataType[] = [
     address: "321 Pine St, Villagetown, USA",
     dateOfBirth: "1995-06-18",
     lastTransaction: {
-      date: 2024 - 11 - 13,
-      amount: -50.0,
-      description: "Restaurant Payment",
+      date: "",
+      amount: 0,
+      description: "",
     },
     accountStatus: "Active",
     createdAt: "2017-07-10",
@@ -110,9 +110,9 @@ export const usersData: UserDataType[] = [
     address: "456 Birch Rd, Smalltown, USA",
     dateOfBirth: "1990-11-05",
     lastTransaction: {
-      date: 2024 - 11 - 16,
-      amount: 500.0,
-      description: "Salary Deposit",
+      date: "",
+      amount: 0,
+      description: "",
     },
     accountStatus: "Active",
     createdAt: "2016-03-01",
@@ -130,9 +130,9 @@ export const usersData: UserDataType[] = [
     address: "101 Cherry Ln, Middletown, USA",
     dateOfBirth: "1988-01-22",
     lastTransaction: {
-      date: "2024-11-12",
-      amount: -120.0,
-      description: "Car Repair",
+      date: "",
+      amount: 0,
+      description: "",
     },
     accountStatus: "Active",
     createdAt: "2014-08-22",
@@ -150,9 +150,9 @@ export const usersData: UserDataType[] = [
     address: "654 Willow St, Newtown, USA",
     dateOfBirth: "1993-07-08",
     lastTransaction: {
-      date: "2024-11-11",
-      amount: -40.0,
-      description: "Online Shopping",
+      date: "",
+      amount: 0,
+      description: "",
     },
     accountStatus: "Suspended",
     createdAt: "2021-06-12",
@@ -170,9 +170,9 @@ export const usersData: UserDataType[] = [
     address: "432 Cedar St, Oldtown, USA",
     dateOfBirth: "1983-05-14",
     lastTransaction: {
-      date: "2024-11-09",
-      amount: -250.0,
-      description: "Office Supplies",
+      date: "",
+      amount: 0,
+      description: "",
     },
     accountStatus: "Active",
     createdAt: "2010-04-04",
@@ -190,9 +190,9 @@ export const usersData: UserDataType[] = [
     address: "789 Oak Dr, Greenfield, USA",
     dateOfBirth: "1994-09-10",
     lastTransaction: {
-      date: "2024-11-13",
-      amount: 200.0,
-      description: "Refund",
+      date: "",
+      amount: 0,
+      description: "",
     },
     accountStatus: "Active",
     createdAt: "2019-05-18",
@@ -210,9 +210,9 @@ export const usersData: UserDataType[] = [
     address: "321 Elm St, Hilltop, USA",
     dateOfBirth: "1999-02-27",
     lastTransaction: {
-      date: "2024-11-10",
-      amount: -60.0,
-      description: "Movie Ticket",
+      date: "",
+      amount: 0,
+      description: "",
     },
     accountStatus: "Active",
     createdAt: "2022-12-04",

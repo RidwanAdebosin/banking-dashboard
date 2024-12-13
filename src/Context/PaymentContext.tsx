@@ -1,3 +1,4 @@
+// import { object } from "yup";
 import { UserDataType, usersData } from "../utils/data";
 import { createContext, ReactNode, useEffect, useState } from "react";
 
@@ -15,6 +16,11 @@ const PaymentProvider = ({ children }: { children: ReactNode }) => {
   });
   const [selectedUser, setSelectedUser] = useState<UserDataType | null>(null);
 
+  const [transactionDate, setTransactionDate] = useState(() => {
+    const storedTransactionDate = localStorage.getItem("transactionDate");
+    return storedTransactionDate ? new Date(storedTransactionDate) : "";
+  });
+
   useEffect(() => {
     localStorage.setItem("accounts", JSON.stringify(accounts));
   }, [accounts]);
@@ -22,6 +28,11 @@ const PaymentProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     localStorage.setItem("bankBalance", bankBalance.toString());
   }, [bankBalance]);
+
+  useEffect(() => {
+    localStorage.setItem("transactionDate", transactionDate.toLocaleString());
+  }, [transactionDate]);
+  // console.log(transactionDate);
   return (
     <PaymentContext.Provider
       value={{
@@ -31,6 +42,8 @@ const PaymentProvider = ({ children }: { children: ReactNode }) => {
         setBankBalance,
         selectedUser,
         setSelectedUser,
+        transactionDate,
+        setTransactionDate,
       }}
     >
       {children}

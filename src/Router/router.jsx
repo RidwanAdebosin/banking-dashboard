@@ -24,16 +24,16 @@ const router = createBrowserRouter([
         element: <CustomersPage />,
         // loader: () => usersData,
       },
-      {
-        path: "customers/:accountNumber",
-        element: <SingleClientPage />,
-        loader: async ({ params }) => {
-          const user = UsersContext.find(
-            (user) => user.accountNumber === Number(params.accountNumber)
-          );
-          return user;
-        },
-      },
+      // {
+      //   path: "customers/:accountNumber",
+      //   element: <CustomersPage />,
+      //   loader: async ({ params }) => {
+      //     const user = UsersContext.find(
+      //       (user) => user.accountNumber === Number(params.accountNumber)
+      //     );
+      //     return user;
+      //   },
+      // },
       {
         path: "/transactions-page",
         element: <TransactionsPage />,

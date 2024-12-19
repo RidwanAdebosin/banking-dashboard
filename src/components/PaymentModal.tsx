@@ -12,8 +12,12 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    width: "50%",
-    paddingBlock: "2rem",
+    width: "90%",
+    maxWidth: "500px",
+    padding: "2rem",
+    borderRadius: "10px",
+    backgroundColor: "#fff",
+    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   },
 };
 
@@ -34,8 +38,12 @@ const initialValues: FormValues = {
 };
 
 const validationSchema = Yup.object().shape({
-  amount: Yup.number().min(1).required("Please enter an amount"),
-  description: Yup.string().min(2).required("Enter description"),
+  amount: Yup.number()
+    .min(1, "Amount must be at least 1")
+    .required("Please enter an amount"),
+  description: Yup.string()
+    .min(2, "Description is too short")
+    .required("Enter a description"),
 });
 
 const PaymentModal = ({
@@ -53,7 +61,6 @@ const PaymentModal = ({
     bankBalance,
     setBankBalance,
     selectedUser,
-    transactionDate,
     setTransactionDate,
   } = useContext(PaymentContext);
 
@@ -70,41 +77,26 @@ const PaymentModal = ({
       return;
     }
 
-    // Deduct from bank balance and add to the user's balance
+    // Update account balances and transaction date
     if (selectedUser) {
       const transactionDate = new Date();
       const updatedAccounts = accounts.map((account) =>
-        account.accountNumber === user.accountNumber ||
-        account.user === selectedUser
+        account.accountNumber === user.accountNumber
           ? {
               ...account,
               balance: account.balance + amount,
               lastTransaction: {
-                ...account.lastTransaction.date,
-                date: transactionDate,
-                lastTransaction: {
-                  ...account.lastTransaction.amount,
-                  amount: amount,
-                },
+                date: transactionDate.toLocaleDateString(),
+                amount,
               },
             }
           : account
       );
 
-      const updatedUser = updatedAccounts.find(
-        (account) => 
-      );
-      console.log(updatedUser);
-
-      // console.log(date.toLocaleString());
-
-      // Update state
-      setTransactionDate(transactionDate);
       setAccounts(updatedAccounts);
       setBankBalance((prevBalance) => prevBalance - amount);
+      setTransactionDate(transactionDate);
 
-      // console.log("Updated Accounts in Context:", updatedAccounts);
-      // Reset form and close modal
       setSubmitting(false);
       resetForm();
       onClose();
@@ -118,51 +110,55 @@ const PaymentModal = ({
       style={customStyles}
       contentLabel="Payment Modal"
     >
-      <h2>Transfer</h2>
+      <h2 className="text-lg font-semibold text-center mb-4">Transfer Funds</h2>
       <Formik
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
         initialValues={initialValues}
       >
         {(formik) => (
-          <Form className="grid grid-cols-1 gap-2">
-            <p>Selected Destination Account: {user.name}</p>
-            <label htmlFor="amount" className="text-sm">
-              Amount
+          <Form className="grid grid-cols-1 gap-4">
+            <p className="text-sm">
+              <span className="font-semibold">Recipient:</span> {user.name}
+            </p>
+            <label htmlFor="amount" className="text-sm font-medium">
+              Amount (₦)
             </label>
             <Field
-              type="text"
+              type="number"
               id="amount"
               name="amount"
-              placeholder="₦"
-              className="border mb-2 px-2 rounded"
+              placeholder="Enter amount"
+              className="border rounded px-3 py-2 w-full focus:ring focus:ring-green-300"
             />
             <ErrorMessage
               name="amount"
               component="div"
-              className="text-red-600 text-xs mt-1"
+              className="text-red-600 text-xs"
             />
-            <label htmlFor="description" className="text-sm">
+
+            <label htmlFor="description" className="text-sm font-medium">
               Transaction Description
             </label>
             <Field
               type="text"
               id="description"
               name="description"
-              placeholder="Transaction Description"
-              className="border mb-2 px-2 rounded"
+              placeholder="Enter description"
+              className="border rounded px-3 py-2 w-full focus:ring focus:ring-green-300"
             />
             <ErrorMessage
               name="description"
               component="div"
-              className="text-red-600 text-xs mt-1"
+              className="text-red-600 text-xs"
             />
+
             <button
               type="submit"
               disabled={!formik.isValid || formik.isSubmitting}
-              className="bg-[#606c38] text-white p-2 rounded flex justify-center w-full cursor-pointer"
+              className="bg-green-600 text-white py-2 rounded hover:bg-green-700 transition focus:outline-none focus:ring focus:ring-green-300"
             >
-              {formik.isSubmitting ? "Initializing" : "Pay"}
+              {formik.isSubmitting ? "Processing..." : "Pay Now"}
             </button>
           </Form>
         )}

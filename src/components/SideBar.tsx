@@ -10,15 +10,16 @@ import { useEffect, useState } from "react";
 import { IoMoon, IoSunny } from "react-icons/io5";
 
 const SideBar = () => {
-  const [expandNav, setExpandNav] = useState(false);
+  const [expandNav, setExpandNav] = useState(true);
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
     return savedTheme === "dark";
   });
 
-  // function toggling the aside bar
   const handleExpandNav = (): void => {
-    setExpandNav((prev) => !prev);
+    if (window.screen.width <= 425) {
+      setExpandNav(true);
+    } else setExpandNav((prev) => !prev);
   };
 
   useEffect(() => {
@@ -31,89 +32,76 @@ const SideBar = () => {
     }
   }, [theme]);
 
-  // function handling the dark mode
   const handleThemeMode = (): void => {
     setTheme((theme) => !theme);
     document.body.classList.toggle("dark");
   };
 
   return (
-    <>
-      <section className="  dark:text-white pt-[100px]">
-        {expandNav ? (
-          <ul className="list-type-none flex flex-col gap-4  justify-center items-center ">
-            <li className="p-2 hover:rounded-full hover:bg-slate-400">
-              <Link to="/" className="">
-                <FaHome />
-              </Link>
-            </li>
+    <section className="pt-24 text-gray-800 dark:text-gray-100">
+      {expandNav ? (
+        <ul className="flex flex-col items-center gap-6">
+          <li className="p-3 hover:bg-blue-100 dark:hover:bg-blue-800 rounded-full transition">
+            <Link to="/" aria-label="Home">
+              <FaHome className="text-lg" />
+            </Link>
+          </li>
+          <li className="p-3 hover:bg-blue-100 dark:hover:bg-blue-800 rounded-full transition">
+            <Link to="transactions-page" aria-label="Transactions">
+              <FaDatabase className="text-lg" />
+            </Link>
+          </li>
+          <li className="p-3 hover:bg-blue-100 dark:hover:bg-blue-800 rounded-full transition">
+            <Link to="customers" aria-label="Customers">
+              <FaBook className="text-lg" />
+            </Link>
+          </li>
+        </ul>
+      ) : (
+        <ul className="flex flex-col gap-6 pl-4">
+          <li className="p-3 hover:bg-blue-100 dark:hover:bg-blue-800 rounded-full transition flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-2">
+              <FaHome className="text-lg" />
+              <span>Home</span>
+            </Link>
+          </li>
+          <li className="p-3 hover:bg-blue-100 dark:hover:bg-blue-800 rounded-full transition flex items-center gap-3">
+            <Link to="transactions-page" className="flex items-center gap-2">
+              <FaDatabase className="text-lg" />
+              <span>Transactions</span>
+            </Link>
+          </li>
+          <li className="p-3 hover:bg-blue-100 dark:hover:bg-blue-800 rounded-full transition flex items-center gap-3">
+            <Link to="customers" className="flex items-center gap-2">
+              <FaBook className="text-lg" />
+              <span>Customers</span>
+            </Link>
+          </li>
+        </ul>
+      )}
 
-            <li className="p-2 hover:rounded-full hover:bg-slate-400">
-              <Link to="transactions-page" className="">
-                <FaDatabase />
-              </Link>
-            </li>
-            <li className="p-2 hover:rounded-full hover:bg-slate-400">
-              <Link to="customers">
-                <FaBook />
-              </Link>
-            </li>
-          </ul>
-        ) : (
-          <ul className="  flex-col gap-4 justify-center items-start ">
-            <li className="list-type-none  p-2 hover:rounded-full hover:bg-slate-400">
-              <Link to="/" className="flex items-center gap-1">
-                <span>
-                  <FaHome />
-                </span>
-                Home
-              </Link>
-            </li>
-
-            <li className="list-type-none  p-2 hover:rounded-full hover:bg-slate-400">
-              <Link to="transactions-page" className="flex items-center gap-1">
-                <span>
-                  <FaDatabase />
-                </span>
-                Transactions
-              </Link>
-            </li>
-
-            <li className="list-type-none  p-2 hover:rounded-full hover:bg-slate-400">
-              <Link to="customers" className="flex items-center gap-1">
-                <span>
-                  <FaBook />
-                </span>
-                Customers
-              </Link>
-            </li>
-          </ul>
-        )}
-
+      <div className="mt-24 flex flex-col items-center gap-6">
         <button
-          onClick={() => handleExpandNav()}
-          className="lg:px-4 px-2  py-2 mt-28 cursor-pointer hover:rounded-full hover:bg-slate-400 block dark:text-white"
-          role="expand"
-          aria-label="expand navigation"
+          onClick={handleExpandNav}
+          className="hidden md:block p-3 hover:bg-blue-100 dark:hover:bg-blue-800 rounded-full transition"
+          aria-label="Expand Navigation"
         >
           {expandNav ? <FaAngleDoubleRight /> : <FaAngleDoubleLeft />}
         </button>
 
         <button
-          className="dark:text-white lg:px-4 py-2 px-2 mt-8 cursor-pointer hover:rounded-full hover:bg-slate-400 block"
-          role="switch"
-          aria-checked={theme}
-          aria-label={`Switched to ${theme ? "dark" : "light"} mode`}
-          onClick={() => handleThemeMode()}
+          onClick={handleThemeMode}
+          className="p-3 hover:bg-blue-100 dark:hover:bg-blue-800 rounded-full transition"
+          aria-label={`Switch to ${theme ? "light" : "dark"} mode`}
         >
           {theme ? (
-            <IoSunny aria-hidden="true" />
+            <IoSunny className="text-lg" />
           ) : (
-            <IoMoon aria-hidden="true" />
+            <IoMoon className="text-lg" />
           )}
         </button>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 

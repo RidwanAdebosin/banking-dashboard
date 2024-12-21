@@ -10,7 +10,7 @@ const midnight = new Date(
   0,
   0,
   0
-).toISOString();
+).toLocaleString();
 
 const safeLocalStorageGet = (key: string) => {
   try {
@@ -30,6 +30,7 @@ const safeLocalStorageSet = (key: string, value: string) => {
 };
 
 const PaymentProvider = ({ children }: { children: ReactNode }) => {
+  const [loading, setIsLoading] = useState(true);
   const [accounts, setAccounts] = useState<UserDataType[]>(() => {
     const storedAccounts = safeLocalStorageGet("accounts");
     return storedAccounts ? JSON.parse(storedAccounts) : usersData;
@@ -51,7 +52,7 @@ const PaymentProvider = ({ children }: { children: ReactNode }) => {
 
   const [transactionDate, setTransactionDate] = useState(() => {
     const storedTransactionDate = safeLocalStorageGet("transactionDate");
-    return storedTransactionDate ? storedTransactionDate : "";
+    return storedTransactionDate ? storedTransactionDate : date;
   });
 
   useEffect(() => {
@@ -67,10 +68,9 @@ const PaymentProvider = ({ children }: { children: ReactNode }) => {
   }, [bankBalance]);
 
   useEffect(() => {
-    safeLocalStorageSet("transactionDate", transactionDate);
+    safeLocalStorageSet("transactionDate", date.toLocaleString());
   }, [transactionDate]);
 
-  // console.log(transactions);
   return (
     <PaymentContext.Provider
       value={{
@@ -80,10 +80,11 @@ const PaymentProvider = ({ children }: { children: ReactNode }) => {
         setBankBalance,
         selectedUser,
         setSelectedUser,
-        transactionDate,
         setTransactionDate,
         transactions,
         setTransactions,
+        loading,
+        setIsLoading,
       }}
     >
       {children}

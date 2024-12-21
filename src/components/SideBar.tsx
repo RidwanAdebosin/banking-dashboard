@@ -51,11 +51,11 @@ const SideBar = () => {
               <FaDatabase className="text-lg" />
             </Link>
           </li>
-          <li className="p-3 hover:bg-blue-100 dark:hover:bg-blue-800 rounded-full transition">
-            <Link to="customers" aria-label="Customers">
+          {/* <li className="p-3 hover:bg-blue-100 dark:hover:bg-blue-800 rounded-full transition">
+            <Link to="customer" aria-label="Customer">
               <FaBook className="text-lg" />
             </Link>
-          </li>
+          </li> */}
         </ul>
       ) : (
         <ul className="flex flex-col gap-6 pl-4">
@@ -71,12 +71,12 @@ const SideBar = () => {
               <span>Transactions</span>
             </Link>
           </li>
-          <li className="p-3 hover:bg-blue-100 dark:hover:bg-blue-800 rounded-full transition flex items-center gap-3">
-            <Link to="customers" className="flex items-center gap-2">
+          {/* <li className="p-3 hover:bg-blue-100 dark:hover:bg-blue-800 rounded-full transition flex items-center gap-3">
+            <Link to="customer" className="flex items-center gap-2">
               <FaBook className="text-lg" />
               <span>Customers</span>
             </Link>
-          </li>
+          </li> */}
         </ul>
       )}
 

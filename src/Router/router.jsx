@@ -2,7 +2,7 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import AdminDashBoard from "../Pages/AdminDashBoard";
 import Layout from "./Layout";
 import TransactionsPage from "../Pages/TransactionsPage";
-import CustomersPage from "../Pages/CustomersPage";
+import SingleCustomer from "../Pages/SingleCustomer";
 import SingleClientPage from "../Pages/SingleClientPage";
 // import { usersData } from "../utils/data";
 import { UsersContext } from "../Context/UsersContext";
@@ -20,20 +20,9 @@ const router = createBrowserRouter([
         element: <AdminDashBoard />,
       },
       {
-        path: "customers",
-        element: <CustomersPage />,
-        // loader: () => usersData,
+        path: "customer/:accountNumber",
+        element: <SingleCustomer />,
       },
-      // {
-      //   path: "customers/:accountNumber",
-      //   element: <CustomersPage />,
-      //   loader: async ({ params }) => {
-      //     const user = UsersContext.find(
-      //       (user) => user.accountNumber === Number(params.accountNumber)
-      //     );
-      //     return user;
-      //   },
-      // },
       {
         path: "/transactions-page",
         element: <TransactionsPage />,

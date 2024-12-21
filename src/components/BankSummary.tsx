@@ -6,7 +6,7 @@ import { PaymentContext } from "../Context/PaymentContext";
 
 export const BankSummary = () => {
   // const filterContext = useFilter();
-  const { bankBalance, accounts } = useContext(PaymentContext);
+  const { bankBalance, accounts, transactions } = useContext(PaymentContext);
 
   const { handleSearchUser } = useContext(FilterContext);
   // console.log(onSearchUser);
@@ -34,7 +34,7 @@ export const BankSummary = () => {
         <Card>
           <div className="lg:flex gap-4">
             <p className="text-[#64748B]">Transactions initiated: </p>
-            <strong>5</strong>
+            <strong>{transactions.length}</strong>
           </div>
         </Card>
         <form

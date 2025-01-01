@@ -60,7 +60,7 @@ export const SendMoneyModal = ({
     { setSubmitting, resetForm }: FormikHelpers<FormValues>
   ) => {
     const amount = Number(values.amount);
-    const recipient = values.recipient;
+    const recipientAccountNumber = values.recipient;
 
     if (user && user.balance >= amount) {
       const transactionDate = new Date().toLocaleString();
@@ -75,7 +75,9 @@ export const SendMoneyModal = ({
               amountSent: amount,
             },
           };
-        } else if (recipient) {
+        }
+
+        if (+recipientAccountNumber === account.accountNumber) {
           return {
             ...account,
             balance: account.balance + amount,
@@ -85,10 +87,9 @@ export const SendMoneyModal = ({
             },
           };
         }
+
         return account;
       });
-
-      console.log("Updated Accounts:", updatedAccounts);
 
       setAccounts(updatedAccounts);
       alert("Transaction successful!");

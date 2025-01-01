@@ -11,7 +11,6 @@ const midnight = new Date(
   0,
   0
 ).toLocaleString();
-
 const safeLocalStorageGet = (key: string) => {
   try {
     return localStorage.getItem(key);

@@ -1,7 +1,9 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { FilterContext } from "../Context/FilterContext";
 import { PaymentContext } from "../Context/PaymentContext";
+import { UserDataType } from "../utils/data";
+import { SendMoneyModal } from "../components/SendMoneyModal";
 
 const InfoSection = ({ title, children }) => (
   <div className="p-6 bg-white rounded-lg shadow-md dark:bg-blue-800">
@@ -30,15 +32,28 @@ const SkeletonLoader = () => (
 );
 
 const SingleCustomer = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { accounts } = useContext(FilterContext);
   const { accountNumber } = useParams();
-  const { loading, setIsLoading } = useContext(PaymentContext);
+  const { loading, setIsLoading, selectedUser, setSelectedUser } =
+    useContext(PaymentContext);
+
+  const handleOpenModal = (user: UserDataType) => {
+    setSelectedUser(user);
+    setModalIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedUser(null);
+    setModalIsOpen(false);
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000);
     return () => clearTimeout(timer);
   }, [setIsLoading]);
 
+  // console.log(accounts);
   const user = accounts?.find(
     (user) => user.accountNumber === Number(accountNumber)
   );
@@ -50,7 +65,6 @@ const SingleCustomer = () => {
       </div>
     );
   }
-
   return loading ? (
     <SkeletonLoader />
   ) : (
@@ -122,24 +136,46 @@ const SingleCustomer = () => {
           </p>
         </InfoSection>
 
-        <InfoSection title="Last Transaction">
-          <p>
-            <span className="font-semibold tracking-wide">Date & Time:</span>{" "}
-            {new Date(user.lastTransaction.date).toLocaleString()}
-          </p>
-          <p>
-            <span className="font-semibold tracking-wide">Amount:</span> ₦
-            {user.lastTransaction.amount.toLocaleString()}
-          </p>
+        <InfoSection title="Latest Transactions">
+          <ul>
+            <li>
+              <p>
+                <span className="font-semibold tracking-wide">
+                  Date & Time:
+                </span>{" "}
+                {new Date(user.lastTransaction.date).toLocaleString()}
+              </p>
+              <p>
+                <span className="font-semibold tracking-wide">
+                  Amount Received:
+                </span>{" "}
+                ₦{user.lastTransaction.amountReceived?.toLocaleString()}
+              </p>
+            </li>
+            {/* <li>
+              <p>
+                <span className="font-semibold tracking-wide">
+                  Date & Time:
+                </span>{" "}
+                {new Date(user.lastTransaction.date).toLocaleString()}
+              </p>
+              <p>
+                <span className="font-semibold tracking-wide">
+                  Amount Sent:
+                </span>{" "}
+                ₦{user.lastTransaction.amount.toLocaleString()}
+              </p>
+            </li> */}
+          </ul>
         </InfoSection>
 
         <div className="p-6 bg-white rounded-lg shadow-md dark:bg-blue-800 flex justify-center">
           {user.accountStatus === "Active" ? (
             <button
-              disabled
+              onClick={() => handleOpenModal(user)}
               className="px-6 py-3 text-white bg-green-600 rounded-lg shadow hover:bg-green-700 tracking-wide"
             >
-              Pay Now
+              Send Money
             </button>
           ) : (
             <button
@@ -151,6 +187,13 @@ const SingleCustomer = () => {
           )}
         </div>
       </div>
+      {selectedUser && (
+        <SendMoneyModal
+          user={selectedUser}
+          isOpen={modalIsOpen}
+          onClose={handleCloseModal}
+        />
+      )}
     </section>
   );
 };

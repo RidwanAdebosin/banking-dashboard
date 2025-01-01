@@ -9,7 +9,8 @@ export interface UserDataType {
   dateOfBirth: string | number;
   lastTransaction: {
     date: number | string | object;
-    amount: number;
+    amountReceived: number;
+    amountSent: number;
     description: string;
   };
   accountStatus: string;
@@ -31,7 +32,8 @@ export const usersData: UserDataType[] = [
     dateOfBirth: "1985-08-15",
     lastTransaction: {
       date: "",
-      amount: 0,
+      amountReceived: 0,
+      amountSent: 0,
       description: "",
     },
     accountStatus: "Active",
@@ -51,7 +53,8 @@ export const usersData: UserDataType[] = [
     dateOfBirth: "1992-12-22",
     lastTransaction: {
       date: "",
-      amount: 0,
+      amountReceived: 0,
+      amountSent: 0,
       description: "",
     },
     accountStatus: "Active",
@@ -71,7 +74,8 @@ export const usersData: UserDataType[] = [
     dateOfBirth: "1980-04-30",
     lastTransaction: {
       date: "",
-      amount: 0,
+      amountReceived: 0,
+      amountSent: 0,
       description: "",
     },
     accountStatus: "Active",
@@ -91,7 +95,8 @@ export const usersData: UserDataType[] = [
     dateOfBirth: "1995-06-18",
     lastTransaction: {
       date: "",
-      amount: 0,
+      amountReceived: 0,
+      amountSent: 0,
       description: "",
     },
     accountStatus: "Active",
@@ -111,7 +116,8 @@ export const usersData: UserDataType[] = [
     dateOfBirth: "1990-11-05",
     lastTransaction: {
       date: "",
-      amount: 0,
+      amountReceived: 0,
+      amountSent: 0,
       description: "",
     },
     accountStatus: "Active",
@@ -131,7 +137,8 @@ export const usersData: UserDataType[] = [
     dateOfBirth: "1988-01-22",
     lastTransaction: {
       date: "",
-      amount: 0,
+      amountReceived: 0,
+      amountSent: 0,
       description: "",
     },
     accountStatus: "Active",
@@ -151,7 +158,8 @@ export const usersData: UserDataType[] = [
     dateOfBirth: "1993-07-08",
     lastTransaction: {
       date: "",
-      amount: 0,
+      amountReceived: 0,
+      amountSent: 0,
       description: "",
     },
     accountStatus: "Suspended",
@@ -171,7 +179,8 @@ export const usersData: UserDataType[] = [
     dateOfBirth: "1983-05-14",
     lastTransaction: {
       date: "",
-      amount: 0,
+      amountReceived: 0,
+      amountSent: 0,
       description: "",
     },
     accountStatus: "Active",
@@ -191,7 +200,8 @@ export const usersData: UserDataType[] = [
     dateOfBirth: "1994-09-10",
     lastTransaction: {
       date: "",
-      amount: 0,
+      amountReceived: 0,
+      amountSent: 0,
       description: "",
     },
     accountStatus: "Active",
@@ -211,7 +221,8 @@ export const usersData: UserDataType[] = [
     dateOfBirth: "1999-02-27",
     lastTransaction: {
       date: "",
-      amount: 0,
+      amountReceived: 0,
+      amountSent: 0,
       description: "",
     },
     accountStatus: "Active",

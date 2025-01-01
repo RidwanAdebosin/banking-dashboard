@@ -48,6 +48,7 @@ const TransactionsPage = () => {
                   <th className="p-4 border-b">Name</th>
                   <th className="p-4 border-b">Account No.</th>
                   <th className="p-4 border-b">Amount Received</th>
+                  <th className="p-4 border-b">Amount Sent</th>
                   <th className="p-4 border-b">Date / Time</th>
                 </tr>
               </thead>
@@ -93,7 +94,7 @@ const TransactionsPage = () => {
                     <td className="p-4 border-b font-semibold">{user.name}</td>
                     <td className="p-4 border-b">{user.accountNumber}</td>
                     <td className="p-4 border-b">
-                      ₦{user.lastTransaction.amount}
+                      ₦{user.lastTransaction.amountReceived}
                     </td>
                     <td className="p-4 border-b">
                       {user.lastTransaction.date.toLocaleString()}

@@ -3,11 +3,7 @@ import AdminDashBoard from "../Pages/AdminDashBoard";
 import Layout from "./Layout";
 import TransactionsPage from "../Pages/TransactionsPage";
 import SingleCustomer from "../Pages/SingleCustomer";
-import SingleClientPage from "../Pages/SingleClientPage";
-// import { usersData } from "../utils/data";
-import { UsersContext } from "../Context/UsersContext";
 import Error from "../Pages/Error";
-// import PaymentModal from "../components/PaymentModal";
 
 const router = createBrowserRouter([
   {

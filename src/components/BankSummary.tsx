@@ -7,9 +7,8 @@ import { PaymentContext } from "../Context/PaymentContext";
 export const BankSummary = () => {
   // const filterContext = useFilter();
   const { bankBalance, accounts, transactions } = useContext(PaymentContext);
-
   const { handleSearchUser } = useContext(FilterContext);
-  // console.log(onSearchUser);
+
   const activeAccount = accounts.filter(
     (account) => account.accountStatus === "Active"
   );

@@ -1,13 +1,14 @@
-import PaymentModal from "./PaymentModal";
+import { PayClientModal } from "./PayClientModal";
 import { UserDataType } from "../utils/data";
 import { useContext, useState } from "react";
 import { PaymentContext } from "../Context/PaymentContext";
 import { useNavigate } from "react-router";
+import { FilterContext } from "../Context/FilterContext";
 
 export const Users = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const { accounts, selectedUser, setSelectedUser } =
-    useContext(PaymentContext);
+  const { selectedUser, setSelectedUser } = useContext(PaymentContext);
+  const { filteredUser } = useContext(FilterContext);
   const navigate = useNavigate();
 
   const handleOpenModal = (user: UserDataType) => {
@@ -24,6 +25,7 @@ export const Users = () => {
     navigate(`/customer/${accountNumber}`);
   };
 
+  // console.log(accounts);
   return (
     <section
       className="relative flex flex-col w-full h-svh text-gray-800 bg-white dark:bg-gray-300 dark:text-white rounded-lg bg-clip-border py-6 px-4 font-inter"
@@ -48,7 +50,7 @@ export const Users = () => {
           </tr>
         </thead>
         <tbody>
-          {accounts.map((user: UserDataType) => (
+          {filteredUser.map((user: UserDataType) => (
             <tr
               key={user.accountNumber}
               className="hover:border-b-2 hover:border-indigo-600 transition duration-300"
@@ -94,7 +96,7 @@ export const Users = () => {
       </table>
 
       {selectedUser && (
-        <PaymentModal
+        <PayClientModal
           user={selectedUser}
           isOpen={modalIsOpen}
           onClose={handleCloseModal}

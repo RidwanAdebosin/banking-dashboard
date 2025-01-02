@@ -52,8 +52,7 @@ export const SendMoneyModal = ({
   onClose: () => void;
 }) => {
   const { accounts, setAccounts } = useContext(PaymentContext);
-  const [selectedRecipient, setSelectedRecipient] = useState({});
-  console.log(accounts);
+  // const [selectedRecipient, setSelectedRecipient] = useState({});
 
   const handleSubmit = async (
     values: FormValues,
@@ -99,6 +98,7 @@ export const SendMoneyModal = ({
 
     setSubmitting(false);
     resetForm();
+    onClose();
   };
 
   return (
@@ -142,9 +142,9 @@ export const SendMoneyModal = ({
                 name="recipient"
                 className="border border-gray-300 rounded w-full px-3 py-2 focus:outline-none focus:ring focus:ring-green-300"
                 onChange={(e) => {
-                  const value = e.target.value;
-                  setSelectedRecipient(value);
-                  formik.setFieldValue("recipient", value);
+                  // const value = e.target.value;
+                  // setSelectedRecipient(value);
+                  formik.setFieldValue("recipient", e.target.value);
                 }}
               >
                 <option value="">Select Recipient</option>

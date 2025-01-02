@@ -35,7 +35,7 @@ const SingleCustomer = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { accounts } = useContext(FilterContext);
   const { accountNumber } = useParams();
-  const { loading, setIsLoading, selectedUser, setSelectedUser } =
+  const { loading, setIsLoading, selectedUser, setSelectedUser, transactions } =
     useContext(PaymentContext);
 
   const handleOpenModal = (user: UserDataType) => {
@@ -49,7 +49,7 @@ const SingleCustomer = () => {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000);
+    const timer = setTimeout(() => setIsLoading(false), 1000);
     return () => clearTimeout(timer);
   }, [setIsLoading]);
 
@@ -152,20 +152,53 @@ const SingleCustomer = () => {
                 ₦{user.lastTransaction.amountReceived?.toLocaleString()}
               </p>
             </li>
-            {/* <li>
-              <p>
-                <span className="font-semibold tracking-wide">
-                  Date & Time:
-                </span>{" "}
-                {new Date(user.lastTransaction.date).toLocaleString()}
-              </p>
-              <p>
-                <span className="font-semibold tracking-wide">
-                  Amount Sent:
-                </span>{" "}
-                ₦{user.lastTransaction.amount.toLocaleString()}
-              </p>
-            </li> */}
+            <table className="w-full text-left table-auto">
+              <thead>
+                <tr>
+                  <th className="text-sm font-medium text-gray-600 tracking-wide">
+                    Receiver's Name
+                  </th>
+                  <th className="text-sm font-medium text-gray-600 tracking-wide">
+                    Account No.
+                  </th>
+                  <th className="text-sm font-medium text-gray-600 tracking-wide hidden md:flex">
+                    Amount Sent
+                  </th>
+                  <th className="text-sm font-medium text-gray-600 tracking-wide">
+                    Date / Time
+                  </th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {transactions.map((user: UserDataType) => (
+                  <tr
+                    key={user.accountNumber}
+                    className="hover:border-b-2 hover:border-indigo-600 transition duration-300"
+                  >
+                    <td
+                      className="font-semibold text-gray-800 cursor-pointer"
+                      // onClick={() => handleUserClick(user.accountNumber)}
+                    >
+                      {recipient.name}
+                    </td>
+                    <td className="text-gray-600">{user.accountNumber}</td>
+                    <td
+                      className={`${
+                        user.accountStatus === "Active"
+                          ? "text-green-700"
+                          : "text-red-700"
+                      } hidden md:flex`}
+                    >
+                      {user.lastTransaction.amountSent}
+                    </td>
+                    <td className="font-semibold text-gray-900">
+                      {user.lastTransaction.date.toLocaleString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </ul>
         </InfoSection>
 

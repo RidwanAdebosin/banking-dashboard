@@ -25,7 +25,6 @@ export const Users = () => {
     navigate(`/customer/${accountNumber}`);
   };
 
-  // console.log(accounts);
   return (
     <section
       className="relative flex flex-col w-full h-svh text-gray-800 bg-white dark:bg-gray-300 dark:text-white rounded-lg bg-clip-border py-6 px-4 font-inter"

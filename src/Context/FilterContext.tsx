@@ -1,14 +1,13 @@
 import { PaymentContext } from "./PaymentContext";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 //Creating a filter context custom provider
 const FilterContext = createContext({});
 
 //Create a filter provider
 const FilterProvider = ({ children }) => {
-  const [searchUser, setSearchUser] = useState("");
-
   const { accounts } = useContext(PaymentContext);
+  const [searchUser, setSearchUser] = useState("");
   const [filteredUser, setFilteredUser] = useState(accounts);
 
   const handleSearchUser = (e): void => {

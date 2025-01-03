@@ -180,7 +180,7 @@ const SingleCustomer = () => {
                       className="font-semibold text-gray-800 cursor-pointer"
                       // onClick={() => handleUserClick(user.accountNumber)}
                     >
-                      {recipient.name}
+                      {user.name}
                     </td>
                     <td className="text-gray-600">{user.accountNumber}</td>
                     <td

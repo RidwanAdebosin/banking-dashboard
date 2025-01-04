@@ -183,13 +183,7 @@ const SingleCustomer = () => {
                       {user.name}
                     </td>
                     <td className="text-gray-600">{user.accountNumber}</td>
-                    <td
-                      className={`${
-                        user.accountStatus === "Active"
-                          ? "text-green-700"
-                          : "text-red-700"
-                      } hidden md:flex`}
-                    >
+                    <td className="text-gray-600">
                       {user.lastTransaction.amountSent}
                     </td>
                     <td className="font-semibold text-gray-900">

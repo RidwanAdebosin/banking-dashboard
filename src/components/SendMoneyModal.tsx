@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import Modal from "react-modal";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { PaymentContext } from "../Context/PaymentContext";
 import { Field, ErrorMessage, Formik, FormikHelpers, Form } from "formik";
 
@@ -52,7 +52,6 @@ export const SendMoneyModal = ({
   onClose: () => void;
 }) => {
   const { accounts, setAccounts } = useContext(PaymentContext);
-  // const [selectedRecipient, setSelectedRecipient] = useState({});
 
   const handleSubmit = async (
     values: FormValues,

@@ -138,7 +138,7 @@ const SingleCustomer = () => {
 
         <InfoSection title="Latest Transactions">
           <ul>
-            <li>
+            {/* <li>
               <p>
                 <span className="font-semibold tracking-wide">
                   Date & Time:
@@ -151,7 +151,7 @@ const SingleCustomer = () => {
                 </span>{" "}
                 ₦{user.lastTransaction.amountReceived?.toLocaleString()}
               </p>
-            </li>
+            </li> */}
             <table className="w-full text-left table-auto">
               <thead>
                 <tr>

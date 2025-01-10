@@ -35,7 +35,7 @@ const PaymentProvider = ({ children }: { children: ReactNode }) => {
     const storedAccounts = safeLocalStorageGet("accounts");
     return storedAccounts ? JSON.parse(storedAccounts) : usersData;
   });
-
+  // const [accounts, setAccounts] = useState<UserDataType[]>(usersData);
   const [transactions, setTransactions] = useState<UserDataType[]>(() => {
     safeLocalStorageGet("transactions");
     return accounts.filter(

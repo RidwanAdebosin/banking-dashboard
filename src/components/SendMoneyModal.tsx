@@ -141,8 +141,6 @@ export const SendMoneyModal = ({
                 name="recipient"
                 className="border border-gray-300 rounded w-full px-3 py-2 focus:outline-none focus:ring focus:ring-green-300"
                 onChange={(e) => {
-                  // const value = e.target.value;
-                  // setSelectedRecipient(value);
                   formik.setFieldValue("recipient", e.target.value);
                 }}
               >

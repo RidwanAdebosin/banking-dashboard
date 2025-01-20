@@ -5,7 +5,21 @@ import { PaymentContext } from "../Context/PaymentContext";
 import { UserDataType } from "../utils/data";
 import { SendMoneyModal } from "../components/SendMoneyModal";
 
-const InfoSection = ({ title, children }) => (
+interface PaymentContextType {
+  loading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedUser: object;
+  setSelectedUser: React.Dispatch<React.SetStateAction<UserDataType | null>>;
+  transactions: UserDataType;
+}
+
+const InfoSection = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) => (
   <div className="p-6 bg-white rounded-lg shadow-md dark:bg-blue-800">
     <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">
       {title}
@@ -36,7 +50,7 @@ const SingleCustomer = () => {
   const { accounts } = useContext(FilterContext);
   const { accountNumber } = useParams();
   const { loading, setIsLoading, selectedUser, setSelectedUser, transactions } =
-    useContext(PaymentContext);
+    useContext(PaymentContext) as PaymentContextType;
 
   const handleOpenModal = (user: UserDataType) => {
     setSelectedUser(user);
@@ -55,7 +69,7 @@ const SingleCustomer = () => {
 
   // console.log(accounts);
   const user = accounts?.find(
-    (user) => user.accountNumber === Number(accountNumber)
+    (user: UserDataType) => user.accountNumber === Number(accountNumber)
   );
 
   if (!user) {
@@ -155,16 +169,19 @@ const SingleCustomer = () => {
             <table className="w-full text-left table-auto">
               <thead>
                 <tr>
-                  <th className="text-sm font-medium text-gray-600 tracking-wide">
+                  <th className="text-sm text-gray-800 dark:text-white tracking-wide ">
                     Receiver's Name
                   </th>
-                  <th className="text-sm font-medium text-gray-600 tracking-wide">
+                  <th className="text-sm text-gray-800 dark:text-white tracking-wide">
                     Account No.
                   </th>
-                  <th className="text-sm font-medium text-gray-600 tracking-wide hidden md:flex">
+                  {/* <th className="text-sm text-gray-800 dark:text-white tracking-wide">
+                    Amount Received
+                  </th> */}
+                  <th className="text-sm text-gray-800 dark:text-white tracking-wide hidden md:flex">
                     Amount Sent
                   </th>
-                  <th className="text-sm font-medium text-gray-600 tracking-wide">
+                  <th className="text-sm text-gray-800 dark:text-white tracking-wide">
                     Date / Time
                   </th>
                   <th></th>
@@ -176,17 +193,20 @@ const SingleCustomer = () => {
                     key={user.accountNumber}
                     className="hover:border-b-2 hover:border-indigo-600 transition duration-300"
                   >
-                    <td
-                      className="font-semibold text-gray-800 cursor-pointer"
-                      // onClick={() => handleUserClick(user.accountNumber)}
-                    >
+                    <td className="text-semibold text-gray-800 dark:text-white">
                       {user.name}
                     </td>
-                    <td className="text-gray-600">{user.accountNumber}</td>
-                    <td className="text-gray-600">
-                      {user.lastTransaction.amountSent}
+                    <td className="text-base text-gray-800 dark:text-white">
+                      {user.accountNumber}
                     </td>
-                    <td className="font-semibold text-gray-900">
+
+                    <td className="text-base text-gray-800 dark:text-white">
+                      ₦{user.lastTransaction.amountReceived || 0}
+                    </td>
+                    {/* <td className="text-gray-600">
+                      ₦{user.lastTransaction.amountSent || 0}
+                    </td> */}
+                    <td className="font-semibold text-base text-gray-800 dark:text-white">
                       {user.lastTransaction.date.toLocaleString()}
                     </td>
                   </tr>
